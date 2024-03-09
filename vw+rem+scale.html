@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* vw为单位
+  vw：视口宽度，vw是一个相对单位，不管在什么屏幕下，都是把屏幕分为100等份：100vw=占满整个屏幕 ==> 1vw=1/100
+  若设计稿是1920px的设计稿 ===> 1vw = 1920px / 100 = 19.2px
+  若设计稿是640px的设计稿 ===> 1vw = 640px / 100 = 6.4px
+  若设计稿是375px的设计稿 ===> 1vw = 375px / 100 = 3.75px
+
+  原理：实现在不同的设备中网页元素尺寸等比缩放效果
+  */
+  .box {
+    /* width: 300px; */
+    width: 15.625vw;
+    /* height: 200px; */
+    height: 10.416vw;
+    /* font-size: 16px; */
+    font-size: 0.833vw;
+    background-color: red;
+    /* margin-bottom: 10px; */
+    margin-bottom: 0.52vw;
+  }
+
+  /* px为单位 */
+  .box2 {
+    width: 300px;
+    height: 200px;
+    background-color: red;
+    margin-bottom: 10px;
+  }
+
+
+  /* rem为单位
+  rem和vw一样都可以适配不同的分辨率，只不过rem是以根元素字体大小为依据
+
+  假设: 设计稿宽度为1920px，我们若想 1rem=10px 则有：
+  let docEl= document.documentElement
+  let clientWidth=docEl.clientWidth
+  则可以设置html根元素的字体大小为:
+  docEl.fontSize= 10*(clientWidth/1920)+'px'
+  */
+  .box3 {
+    /* 300px */
+    width: 30rem;
+    /* 200px */
+    height: 20rem;
+    /* 16px */
+    font-size: 1.6rem;
+    background-color: red;
+    margin-bottom: 10px;
+  }
+</style>
+
+<body>
+  <!-- vw适配 -->
+  <div class="box">
+    张博文测试
+  </div>
+
+  <!-- px -->
+  <div class="box2">
+    张博文测试
+  </div>
+
+  <!-- rem适配改变根元素字体大小，且以1rem=10px为例 -->
+  <div class="box3">
+    张博文测试
+  </div>
+</body>
+<script>
+
+  // rem函数
+  // 其中设计稿宽度以1920为例---此电脑80%缩放下模拟1920分辨率
+  // 1rem = 10px为例
+  function sizeRem() {
+    let docEl = document.documentElement
+    let clientWidth = docEl.clientWidth
+    docEl.style.fontSize = 10 * (clientWidth / 1920) + 'px'
+  }
+
+  sizeRem() // 首次打开页面触发
+
+  window.addEventListener('resize', sizeRem) // 监听屏幕尺寸宽度变化触发
+</script>
+
+</html>
